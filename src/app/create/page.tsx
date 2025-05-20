@@ -1,26 +1,42 @@
 'use client'
+import { uploadJSONToIPFS } from '@/utils/pinata';
+import { useWallet } from '@solana/wallet-adapter-react';
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function CreatePage() {
-  const router = useRouter()
   const [form, setForm] = useState({
     title: '',
     description: '',
     price: '',
     image: '',
-  })
+  });
+  const wallet = useWallet();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const listings = JSON.parse(localStorage.getItem('rentals') || '[]')
-    const newListing = { ...form, id: Date.now().toString() }
-    localStorage.setItem('rentals', JSON.stringify([...listings, newListing]))
-    router.push('/rentals')
+
+    const rental = {
+    ...form,
+    owner: wallet.publicKey?.toBase58() || 'anonymous',
+    }
+
+    const ipfsUrl = await uploadJSONToIPFS(rental)
+
+    if (ipfsUrl) {
+      const cid = ipfsUrl.split('/').pop()
+      if (cid) {
+        const existingCIDs = JSON.parse(localStorage.getItem('rentalCIDs') || '[]')
+        localStorage.setItem('rentalCIDs', JSON.stringify([...existingCIDs, cid]))
+      }
+
+      alert('Rental uploaded to IPFS successfully!')
+    } else {
+      alert('Failed to upload to IPFS')
+    }
   }
 
   return (
