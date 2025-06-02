@@ -25,7 +25,7 @@ export default function RentalsPage() {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">🏠 Объявления</h1>
+      <h1 className="text-2xl font-bold mb-4">🏠 Rental Listings</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {listings.map((item) => (
           <Link key={item.id} href={`/rentals/${item.cid}`}>
