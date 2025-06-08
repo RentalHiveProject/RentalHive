@@ -1,18 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import WalletConnectionProvider from "@/components/PhantomConnect/PhantomConnect";
 import Navbar from "./Navbar/Navbar";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import ClientInit from "@/components/ClientInit";
 
 export const metadata: Metadata = {
   title: "RentalHive",
@@ -26,9 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body>
+        <ClientInit />
         <WalletConnectionProvider>
           <Navbar />
           <main className="p-6 max-w-6xl mx-auto">{children}</main>
