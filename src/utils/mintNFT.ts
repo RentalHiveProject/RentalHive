@@ -3,7 +3,7 @@ import {
   irysStorage,
   walletAdapterIdentity,
 } from '@metaplex-foundation/js'
-import { Connection, clusterApiUrl } from '@solana/web3.js'
+import { Connection } from '@solana/web3.js'
 import { WalletContextState } from '@solana/wallet-adapter-react'
 
 export async function mintRentalNFT(wallet: WalletContextState, metadata: {
