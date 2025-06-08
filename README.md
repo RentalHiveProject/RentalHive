@@ -4,6 +4,13 @@
 
 ---
 
+## 🚀 Demo
+
+Check out the live demo of **RentalHive** here:  
+👉 [https://singular-rolypoly-98d93b.netlify.app/](https://singular-rolypoly-98d93b.netlify.app/)
+
+---
+
 ## Features
 
 - Create and browse rental listings
